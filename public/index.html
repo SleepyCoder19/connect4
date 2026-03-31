@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect 4</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── SETUP SCREEN ── -->
+  <div id="setup-screen" class="screen active">
+    <h1 class="title">Connect 4</h1>
+
+    <!-- Mode toggle -->
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="2p">Two Players</button>
+      <button class="mode-btn" data-mode="ai">vs Saphire</button>
+    </div>
+
+    <div class="players-container">
+
+      <!-- Player 1 -->
+      <div class="player-card" id="card-1">
+        <div class="player-label">Player 1</div>
+        <input type="text" id="name-1" class="name-input" placeholder="Enter name" maxlength="16" autocomplete="off">
+        <div class="color-label">Pick your color</div>
+        <div class="swatches" id="swatches-1">
+          <button class="swatch" data-color="#e74c3c" style="background:#e74c3c" title="Red"></button>
+          <button class="swatch" data-color="#f39c12" style="background:#f39c12" title="Orange"></button>
+          <button class="swatch" data-color="#f1c40f" style="background:#f1c40f" title="Yellow"></button>
+          <button class="swatch" data-color="#2ecc71" style="background:#2ecc71" title="Green"></button>
+          <button class="swatch" data-color="#3498db" style="background:#3498db" title="Blue"></button>
+          <button class="swatch" data-color="#9b59b6" style="background:#9b59b6" title="Purple"></button>
+          <button class="swatch" data-color="#ff69b4" style="background:#ff69b4" title="Pink"></button>
+          <button class="swatch" data-color="#00bcd4" style="background:#00bcd4" title="Cyan"></button>
+        </div>
+        <div class="color-warning" id="warn-1"></div>
+      </div>
+
+      <div class="vs-badge">VS</div>
+
+      <!-- Player 2 (human) / Saphire (AI) -->
+      <div class="player-card" id="card-2">
+
+        <!-- Human P2 content -->
+        <div id="p2-human">
+          <div class="player-label">Player 2</div>
+          <input type="text" id="name-2" class="name-input" placeholder="Enter name" maxlength="16" autocomplete="off">
+          <div class="color-label">Pick your color</div>
+          <div class="swatches" id="swatches-2">
+            <button class="swatch" data-color="#e74c3c" style="background:#e74c3c" title="Red"></button>
+            <button class="swatch" data-color="#f39c12" style="background:#f39c12" title="Orange"></button>
+            <button class="swatch" data-color="#f1c40f" style="background:#f1c40f" title="Yellow"></button>
+            <button class="swatch" data-color="#2ecc71" style="background:#2ecc71" title="Green"></button>
+            <button class="swatch" data-color="#3498db" style="background:#3498db" title="Blue"></button>
+            <button class="swatch" data-color="#9b59b6" style="background:#9b59b6" title="Purple"></button>
+            <button class="swatch" data-color="#ff69b4" style="background:#ff69b4" title="Pink"></button>
+            <button class="swatch" data-color="#00bcd4" style="background:#00bcd4" title="Cyan"></button>
+          </div>
+          <div class="color-warning" id="warn-2"></div>
+        </div>
+
+        <!-- Saphire AI content (shown when AI mode selected) -->
+        <div id="p2-saphire" class="saphire-profile hidden">
+          <div class="saphire-gem">&#9830;</div>
+          <div class="saphire-name-display">Saphire</div>
+          <div class="saphire-role">AI Opponent</div>
+          <div class="saphire-color-badge">
+            <span class="saphire-dot"></span>
+            Dark Blue
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <button id="start-btn" class="start-btn" disabled>Start Game</button>
+  </div>
+
+  <!-- ── GAME SCREEN ── -->
+  <div id="game-screen" class="screen">
+    <div class="game-header">
+      <div id="turn-indicator" class="turn-indicator">
+        <span id="turn-dot" class="turn-dot"></span>
+        <span id="turn-text"></span>
+      </div>
+    </div>
+
+    <!-- Saphire thinking indicator -->
+    <div id="thinking-indicator" class="thinking-indicator hidden">
+      <span class="thinking-dot"></span>
+      <span class="thinking-dot"></span>
+      <span class="thinking-dot"></span>
+      Saphire is thinking&hellip;
+    </div>
+
+    <div class="board-wrapper">
+      <!-- Turn banner — flashes over board when player switches -->
+      <div id="turn-banner" class="turn-banner hidden">
+        <span id="turn-banner-dot" class="turn-banner-dot"></span>
+        <span id="turn-banner-text"></span>
+      </div>
+
+      <!-- ghost row sits above the board -->
+      <div id="ghost-row" class="ghost-row">
+        <div class="ghost-cell" data-col="0"></div>
+        <div class="ghost-cell" data-col="1"></div>
+        <div class="ghost-cell" data-col="2"></div>
+        <div class="ghost-cell" data-col="3"></div>
+        <div class="ghost-cell" data-col="4"></div>
+        <div class="ghost-cell" data-col="5"></div>
+        <div class="ghost-cell" data-col="6"></div>
+      </div>
+      <div id="board" class="board"></div>
+      <!-- Canvas drawn over the board to connect winning cells -->
+      <canvas id="win-line-canvas" class="win-line-canvas"></canvas>
+    </div>
+
+    <!-- Win / Draw overlay -->
+    <div id="result-overlay" class="result-overlay hidden">
+      <div class="result-box">
+        <div id="result-text" class="result-text"></div>
+        <button id="play-again-btn" class="play-again-btn">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti canvas (full-screen, above everything) -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="game.js"></script>
+</body>
+</html>
