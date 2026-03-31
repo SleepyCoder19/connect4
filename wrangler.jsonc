@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "connect4",
+  "compatibility_date": "2025-09-27",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "single-page-application"
+  },
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    { "pattern": "connect4.rwillard.com", "custom_domain": true }
+  ]
+}
